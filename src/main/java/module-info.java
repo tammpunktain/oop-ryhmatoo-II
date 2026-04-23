@@ -1,8 +1,8 @@
-module com.example.oopryhmatooii {
+module com.oopryhmatooii {
     requires javafx.controls;
     requires javafx.fxml;
 
 
-    opens com.example.oopryhmatooii to javafx.fxml;
-    exports com.example.oopryhmatooii;
+    opens com.oopryhmatooii to javafx.fxml;
+    exports com.oopryhmatooii;
 }
