@@ -1,6 +1,5 @@
 package com.oopryhmatooii;
 
-import javax.swing.*;
 
 public class Auto {
     private String mark;
@@ -50,7 +49,7 @@ public class Auto {
      */
     public void tangi(double liitrid) {
         if(onKatki) {
-            throw new IllegalStateException("Auto on katki, ei saa tankida!")
+            throw new IllegalStateException("Auto on katki, ei saa tankida!");
         }
         if (liitrid <= 0) {
             throw new IllegalArgumentException("Kogus peab olema positiivne");
@@ -110,5 +109,7 @@ public class Auto {
         return labiSoit;
     }
 
-
+    public int getAasta() {
+        return aasta;
+    }
 }

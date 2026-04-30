@@ -1,6 +1,5 @@
 package com.oopryhmatooii;
 
-import javax.swing.*;
 import java.util.ArrayList;
 
 public class Garaaž {
@@ -13,6 +12,11 @@ public class Garaaž {
         }else this.nimi=nimi;
         this.autod = new ArrayList<>();
     }
+    public Garaaž() {
+        this("Minu Garaaz");
+    }
+
+
 
     /**
      * Lisab garaazi klassi Auto isendi
@@ -57,7 +61,7 @@ public class Garaaž {
         if (indeks >= 1 && indeks <= autod.size()) {
             Auto eemaldatud = autod.remove(indeks - 1);
         } else {
-            throw new IllegalArgumentException("Vale sisend!")
+            throw new IllegalArgumentException("Vale sisend!");
         }
     }
 
@@ -68,4 +72,9 @@ public class Garaaž {
     public String getNimi() {
         return nimi;
     }
+
+    public ArrayList<Auto> getAutod() {
+        return autod;
+    }
 }
+
