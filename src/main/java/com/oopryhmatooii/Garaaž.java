@@ -1,6 +1,5 @@
 package com.oopryhmatooii;
 
-import javax.swing.*;
 import java.util.ArrayList;
 
 public class Garaaž {
@@ -13,6 +12,11 @@ public class Garaaž {
         }else this.nimi=nimi;
         this.autod = new ArrayList<>();
     }
+    public Garaaž() {
+        this("Minu Garaaz");
+    }
+
+
 
     /**
      * Lisab garaazi klassi Auto isendi
@@ -20,22 +24,20 @@ public class Garaaž {
      */
     public void lisaAuto(Auto auto) {
         autod.add(auto);
-        JOptionPane.showMessageDialog(null,"Auto " + auto.getMark() + " " + auto.getMudel() + " lisati garaaži: "+nimi);
     }
 
     /**
      * Kuvab autode nimekirja, mis on garaazi lisatud.
      */
-    public void kuvaNimekiri() {
+    public String kuvaNimekiri() {
         if (autod.isEmpty()) {
-            JOptionPane.showMessageDialog(null,"Garaaz on tühi.");
-            return;
+            throw new IllegalStateException("Pole yhtegi autot!");
         }
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < autod.size(); i++) {
             sb.append(i + 1).append(". ").append(autod.get(i)).append("\n");
         }
-        JOptionPane.showMessageDialog(null, sb.toString());
+        return sb.toString();
     }
 
     /**
@@ -47,8 +49,7 @@ public class Garaaž {
         if (indeks >= 1 && indeks <= autod.size()) {
             return autod.get(indeks - 1);
         }
-        JOptionPane.showMessageDialog(null,"Vale indeks");
-        return null;
+        throw new IllegalArgumentException("Vale sisend!");
     }
 
 
@@ -59,10 +60,8 @@ public class Garaaž {
     public void eemaldaAuto(int indeks) {
         if (indeks >= 1 && indeks <= autod.size()) {
             Auto eemaldatud = autod.remove(indeks - 1);
-            JOptionPane.showMessageDialog(null,
-                    "Eemaldati auto: " + eemaldatud.getMark() + " " + eemaldatud.getMudel());
         } else {
-            JOptionPane.showMessageDialog(null, "Vale indeks!");
+            throw new IllegalArgumentException("Vale sisend!");
         }
     }
 
@@ -73,4 +72,9 @@ public class Garaaž {
     public String getNimi() {
         return nimi;
     }
+
+    public ArrayList<Auto> getAutod() {
+        return autod;
+    }
 }
+

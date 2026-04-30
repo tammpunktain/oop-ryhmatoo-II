@@ -1,6 +1,5 @@
 package com.oopryhmatooii;
 
-import javax.swing.*;
 
 public class Auto {
     private String mark;
@@ -26,24 +25,22 @@ public class Auto {
      * @param km näitab mitu kilomeetrit auto peab sõitma
      * @return näitab kas auto oli võimeline ilma vigadeta sõitma
      */
-    public boolean soida(int km) {
-        /*if (onKatki) {
-            JOptionPane.showMessageDialog(null, "Auto on katki, ei saa sõita");
-            return false;
-        }*/
+    public void soida(int km) {
+        if (onKatki) {
+            throw new IllegalStateException("Auto on katki");
+        }
         double kulub = kytusekulu * (km / 100.0);
         if (kulub > kytust) {
-            JOptionPane.showMessageDialog(null, "Pole piisavalt kütust!");
-            return false;
+            throw new IllegalStateException("Pole piisavalt kytust");
         }
+
         labiSoit += km;
         kytust -= kulub;
         double risk = Math.min(0.5, km / 100.0 * 0.15);
+
         if (Math.random() < risk) {
             onKatki = true;
-            JOptionPane.showMessageDialog(null, "Auto läks katki!");
         }
-        return true;
     }
 
     /**
@@ -51,16 +48,13 @@ public class Auto {
      * @param liitrid näitab mitu liitrit peab lisama auto kütusekogusele.
      */
     public void tangi(double liitrid) {
-        /*if(onKatki) {
-            JOptionPane.showMessageDialog(null, "Auto on katki, ei saa tankida");
-            return;
-        }*/
+        if(onKatki) {
+            throw new IllegalStateException("Auto on katki, ei saa tankida!");
+        }
         if (liitrid <= 0) {
-            JOptionPane.showMessageDialog(null,"Kogus peab olema positiivne arv");
-            return;
+            throw new IllegalArgumentException("Kogus peab olema positiivne");
         }
         kytust += liitrid;
-        JOptionPane.showMessageDialog(null,"Tangitud " + liitrid + "L.");
     }
 
     /**
@@ -68,11 +62,9 @@ public class Auto {
      */
     public void remondi() {
         if (!onKatki) {
-            JOptionPane.showMessageDialog(null,"Auto on juba terve.");
-            return;
+            throw new IllegalStateException("Auto on juba terve!");
         }
         onKatki = false;
-        JOptionPane.showMessageDialog(null,"Auto on parandatud.");
     }
 
     /**
@@ -117,5 +109,7 @@ public class Auto {
         return labiSoit;
     }
 
-
+    public int getAasta() {
+        return aasta;
+    }
 }
