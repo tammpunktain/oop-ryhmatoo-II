@@ -1,7 +1,5 @@
 package com.oopryhmatooii;
 
-import javax.swing.*;
-
 public class Auto {
     private String mark;
     private String mudel;
@@ -11,13 +9,18 @@ public class Auto {
     private double kytusekulu; // L/100km
     private boolean onKatki = false;
 
-    public Auto(String mark, String mudel, int aasta, int labiSoit, double kytust, double kytusekulu) {
+    public Auto(String mark, String mudel, int aasta, int labiSoit, double kytust, double kytusekulu, boolean onKatki) {
         this.mark = mark;
         this.mudel = mudel;
         this.aasta = aasta;
         this.labiSoit = labiSoit;
         this.kytust = kytust;
         this.kytusekulu = kytusekulu;
+        this.onKatki=onKatki;
+    }
+    //Auto lisamisel auto ikka töötab
+    public Auto(String mark, String mudel, int aasta, int labiSoit, double kytust, double kytusekulu) {
+        this(mark, mudel, aasta, labiSoit, kytust, kytusekulu, false);
     }
 
 
@@ -27,21 +30,19 @@ public class Auto {
      * @return näitab kas auto oli võimeline ilma vigadeta sõitma
      */
     public boolean soida(int km) {
-        /*if (onKatki) {
-            JOptionPane.showMessageDialog(null, "Auto on katki, ei saa sõita");
+        if (onKatki) {
             return false;
-        }*/
+        }
         double kulub = kytusekulu * (km / 100.0);
         if (kulub > kytust) {
-            JOptionPane.showMessageDialog(null, "Pole piisavalt kütust!");
             return false;
         }
         labiSoit += km;
         kytust -= kulub;
+
         double risk = Math.min(0.5, km / 100.0 * 0.15);
         if (Math.random() < risk) {
             onKatki = true;
-            JOptionPane.showMessageDialog(null, "Auto läks katki!");
         }
         return true;
     }
@@ -50,29 +51,27 @@ public class Auto {
      * Tangib autot
      * @param liitrid näitab mitu liitrit peab lisama auto kütusekogusele.
      */
-    public void tangi(double liitrid) {
-        /*if(onKatki) {
-            JOptionPane.showMessageDialog(null, "Auto on katki, ei saa tankida");
-            return;
-        }*/
-        if (liitrid <= 0) {
-            JOptionPane.showMessageDialog(null,"Kogus peab olema positiivne arv");
+    public void tangi(double liitrid) throws IllegalArgumentException{
+        if(onKatki) {
             return;
         }
+        if (liitrid <= 0) {
+            throw new IllegalArgumentException("Peab pos olema!");
+        }
         kytust += liitrid;
-        JOptionPane.showMessageDialog(null,"Tangitud " + liitrid + "L.");
     }
 
     /**
      * remondib auto
+     *
+     * @return
      */
-    public void remondi() {
+    public boolean remondi() {
         if (!onKatki) {
-            JOptionPane.showMessageDialog(null,"Auto on juba terve.");
-            return;
+            return false;
         }
         onKatki = false;
-        JOptionPane.showMessageDialog(null,"Auto on parandatud.");
+        return true;
     }
 
     /**
@@ -87,6 +86,9 @@ public class Auto {
                 ", läbisõit: " + labiSoit + " km" +
                 ", kütust paagis: " + String.format("%.2f", kytust) + " L" +
                 ", kütusekulu: " + String.format("%.2f", kytusekulu) + " L/100 km";
+    }
+    public String andmedReaks() {
+        return mark + ";" + mudel + ";" + aasta + ";" + labiSoit + ";" + kytust + ";" + kytusekulu + ";" + onKatki;
     }
 
     /**

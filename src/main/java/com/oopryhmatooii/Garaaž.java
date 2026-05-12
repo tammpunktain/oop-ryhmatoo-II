@@ -1,6 +1,8 @@
 package com.oopryhmatooii;
 
 import javax.swing.*;
+import java.io.File;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 
 public class Garaaž {
@@ -20,7 +22,6 @@ public class Garaaž {
      */
     public void lisaAuto(Auto auto) {
         autod.add(auto);
-        JOptionPane.showMessageDialog(null,"Auto " + auto.getMark() + " " + auto.getMudel() + " lisati garaaži: "+nimi);
     }
 
     /**
@@ -28,7 +29,6 @@ public class Garaaž {
      */
     public void kuvaNimekiri() {
         if (autod.isEmpty()) {
-            JOptionPane.showMessageDialog(null,"Garaaz on tühi.");
             return;
         }
         StringBuilder sb = new StringBuilder();
@@ -57,12 +57,15 @@ public class Garaaž {
      * @param indeks on garaazi nimekirja järjekorranumber
      */
     public void eemaldaAuto(int indeks) {
-        if (indeks >= 1 && indeks <= autod.size()) {
-            Auto eemaldatud = autod.remove(indeks - 1);
-            JOptionPane.showMessageDialog(null,
-                    "Eemaldati auto: " + eemaldatud.getMark() + " " + eemaldatud.getMudel());
-        } else {
-            JOptionPane.showMessageDialog(null, "Vale indeks!");
+        if (indeks >= 0 && indeks < autod.size()) {
+            autod.remove(indeks);
+        }
+    }
+    public void salvestaFaili(String failinimi) throws Exception {
+        try (PrintWriter pw = new PrintWriter(new File(failinimi))) {
+            for (Auto a : autod) {
+                pw.println(a.andmedReaks());
+            }
         }
     }
 
@@ -72,5 +75,8 @@ public class Garaaž {
 
     public String getNimi() {
         return nimi;
+    }
+    public ArrayList<Auto> getAutod() {
+        return autod;
     }
 }
