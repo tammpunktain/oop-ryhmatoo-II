@@ -97,8 +97,6 @@ public class MainApp extends Application {
             ListView<Auto> lw = new ListView();
             lw.getItems().addAll(garaaz.getAutod());
             juur.setCenter(lw);
-
-
         });
 
         eemaldaAuto.setOnAction(e -> {
