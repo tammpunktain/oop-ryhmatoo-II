@@ -27,11 +27,11 @@ public class Auto {
      */
     public void soida(int km) {
         if (onKatki) {
-            throw new IllegalStateException("Auto on katki");
+            throw new IllegalStateException("Auto on katki, katkise autoga ei saa sõita!");
         }
         double kulub = kytusekulu * (km / 100.0);
         if (kulub > kytust) {
-            throw new IllegalStateException("Pole piisavalt kytust");
+            throw new IllegalStateException("Pole piisavalt kütust!");
         }
 
         labiSoit += km;
@@ -52,7 +52,7 @@ public class Auto {
             throw new IllegalStateException("Auto on katki, ei saa tankida!");
         }
         if (liitrid <= 0) {
-            throw new IllegalArgumentException("Kogus peab olema positiivne");
+            throw new IllegalArgumentException("Kogus peab olema positiivne!");
         }
         kytust += liitrid;
     }
@@ -79,6 +79,14 @@ public class Auto {
                 ", läbisõit: " + labiSoit + " km" +
                 ", kütust paagis: " + String.format("%.2f", kytust) + " L" +
                 ", kütusekulu: " + String.format("%.2f", kytusekulu) + " L/100 km";
+    }
+    public String kuvaInfo() {
+        return "Mark: " + mark +
+                "\nMudel: " + mudel +
+                "\nAasta: " + aasta +
+                "\nLäbisõit: " + labiSoit + " km" +
+                "\nKütust paagis: " + String.format("%.2f", kytust) + " L" +
+                "\nKütusekulu: " + String.format("%.2f", kytusekulu) + " L/100 km";
     }
 
     /**
