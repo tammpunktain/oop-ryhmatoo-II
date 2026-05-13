@@ -5,6 +5,10 @@ import java.util.Scanner;
 
 public class FailiHaldur {
 
+    /**
+     * Kirjutab faili autod mis on garaaziz
+     * @param garaaz on klass Garaaz, mis hoiab Auto isendeid
+     */
     public static void kirjutaFaili(Garaaž garaaz){
         File file = new File("andmed.csv");
         try (BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(file), "UTF-8"))) {
@@ -25,6 +29,10 @@ public class FailiHaldur {
         }
     }
 
+    /**
+     * loeb failist andmed, loob Auto isendid ja lisab need klassi Garaaz.
+     * @param garaaz on Garaazi klass mis auto isendeid hoiab.
+     */
     public static void loeFailist(Garaaž garaaz) {
         File file = new File("andmed.csv");
         try (BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(file), "UTF-8")))
