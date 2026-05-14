@@ -106,6 +106,15 @@ Viimases etapis lõime rühmatöö kirjelduse ja esitasime töö.
 
 ---
 
+## Tehisintellekti kasutamine
+
+**Ain Tamm** - Kasutasin tehisintellekti vigade leidmiseks ja parimate lahenduse leidmiseks 
+nagu näiteks ListView, millest ma ei olnud varem teadlik.
+
+**Kerdo Timak** - 
+
+---
+
 ## Liikmete panus
 
 ### Ain Tamm

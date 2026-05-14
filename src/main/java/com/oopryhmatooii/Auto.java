@@ -36,9 +36,8 @@ public class Auto {
 
         labiSoit += km;
         kytust -= kulub;
-        double risk = Math.min(0.5, km / 100.0 * 0.15);
 
-        if (Math.random() < risk) {
+        if (Math.random() < 0.15) {
             onKatki = true;
         }
     }
@@ -73,12 +72,7 @@ public class Auto {
      */
     @Override
     public String toString() {
-        return "Mark: " + mark +
-                ", mudel: " + mudel +
-                ", aasta: " + aasta +
-                ", läbisõit: " + labiSoit + " km" +
-                ", kütust paagis: " + String.format("%.2f", kytust) + " L" +
-                ", kütusekulu: " + String.format("%.2f", kytusekulu) + " L/100 km";
+        return mark + " " + mudel + ", " + aasta;
     }
     public String kuvaInfo() {
         return "Mark: " + mark +

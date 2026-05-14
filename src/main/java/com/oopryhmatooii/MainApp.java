@@ -4,14 +4,14 @@ import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.ListView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+
+import java.sql.Array;
+import java.util.ArrayList;
 
 import static javafx.application.Application.launch;
 
@@ -71,28 +71,45 @@ public class MainApp extends Application {
 
             Button nupp = new Button("Sisesta");
 
+
             nupp.setOnAction(e2 -> {
-                Auto auto = new Auto(
-                        mark.getText(),
-                        mudel.getText(),
-                        Integer.parseInt(aasta.getText()),
-                        Integer.parseInt(ls.getText()),
-                        Double.parseDouble(kütust.getText()),
-                        Double.parseDouble(kytsiKulu.getText())
-                );
-                garaaž.lisaAuto(auto);
-                FailiHaldur.kirjutaFaili(garaaž);
-                kuvaAutodeNimekiri();
+                try {
+                    TextField[] valjad = {mark, mudel, aasta, ls, kütust, kytsiKulu};
+                    for (TextField vali : valjad) {
+                        if (vali.getText().isBlank()) {
+                            kuvaViga("Koik väljad peavad olema taidetud!");
+                            return;
+                        }
+                    }
+                    Auto auto = new Auto(
+                            mark.getText(),
+                            mudel.getText(),
+                            Integer.parseInt(aasta.getText()),
+                            Integer.parseInt(ls.getText()),
+                            Double.parseDouble(kütust.getText()),
+                            Double.parseDouble(kytsiKulu.getText())
+                    );
+                    garaaž.lisaAuto(auto);
+                    FailiHaldur.kirjutaFaili(garaaž);
+
+                    kuvaAutodeNimekiri();
+                }
+                catch (NumberFormatException nfe){
+                    kuvaViga("Aasta, läbisõit ja kütuseandmed peavad olema numbrid!");
+                }
+                catch (IllegalArgumentException iax){
+                    kuvaViga(iax.getMessage());
+                }
             });
+
 
             vorm.getChildren().addAll(mark, mudel, aasta, ls, kütust, kytsiKulu, nupp);
             vorm.setAlignment(Pos.CENTER);
             vorm.setSpacing(10);
             vorm.setPadding(new Insets(75));
             juur.setCenter(vorm);
-
-
         });
+
         //Vajutades Eemalda garaažist auto nuppu
         eemaldaAuto.setOnAction(e -> {
             //Kui garaaž on tühi
@@ -134,6 +151,12 @@ public class MainApp extends Application {
         kuvaAutodeNimekiri();
         lava.show();
     }
+
+
+    /**
+     * Kuvab garaaziz olevate autode nimekirja.
+     * Kui garaaz on tühi siis vastava teate.
+     */
     private void kuvaAutodeNimekiri() {
         if (garaaž.getAutod().isEmpty()) {
             juur.setCenter(new Label("Garaažis pole ühtegi autot."));
@@ -145,15 +168,34 @@ public class MainApp extends Application {
         Label juhend = new Label("Vali auto, et näha toiminguid:");
 
         lw.getSelectionModel().selectedItemProperty().addListener(
-                (obs, vana, uus) -> {
-                    if (uus != null) kuvaAutoTegevused(uus);
-                }
+            (obs, vana, uus) -> {
+                if (uus != null) kuvaAutoTegevused(uus);
+            }
         );
 
         VBox paneel = new VBox(8, juhend, lw);
         paneel.setPadding(new Insets(20));
         juur.setCenter(paneel);
     }
+
+
+    /**
+     * Kuvab erinevad vead ekraanile
+     * @param sonum on sonum mida kuvatakse
+     */
+    private void kuvaViga(String sonum) {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("Viga");
+        alert.setHeaderText(null);
+        alert.setContentText(sonum);
+        alert.showAndWait();
+    }
+
+
+    /**
+     * Kuvab valitud auto ja sellega v]imalikud tegevused
+     * @param auto on valitud auto.
+     */
     private void kuvaAutoTegevused(Auto auto) {
         VBox paneel = new VBox(10);
         paneel.setPadding(new Insets(20));
@@ -242,7 +284,12 @@ public class MainApp extends Application {
     }
 
 
-
+    /**
+     * Uuendab auto infot.
+     * @param auto on auto mille andmeid uuendatakse.
+     * @param infoSilt silt auto detailse infoga.
+     * @param olekuSilt näitab auto seisukorda.
+     */
     private void uuendaAutoInfo(Auto auto, Label infoSilt, Label olekuSilt) {
         infoSilt.setText(auto.kuvaInfo());
         if (auto.isOnKatki()) {
@@ -251,8 +298,6 @@ public class MainApp extends Application {
             olekuSilt.setText("Auto on töökorras");
         }
     }
-
-
 
 
     public static void main(String[] args) {
