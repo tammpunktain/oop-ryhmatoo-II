@@ -189,10 +189,6 @@ public class MainApp extends Application {
                 teadeSilt.setText("Viga: " + ex.getMessage());
                 uuendaAutoInfo(auto, infoSilt, olekuSilt);
             }
-        valiAuto.setOnAction(e -> {
-            ListView<Auto> lw = new ListView();
-            lw.getItems().addAll(garaaz.getAutod());
-            juur.setCenter(lw);
         });
 
         TextField liitridVali = new TextField();
