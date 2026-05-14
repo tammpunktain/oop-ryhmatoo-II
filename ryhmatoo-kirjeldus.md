@@ -111,7 +111,7 @@ Viimases etapis lõime rühmatöö kirjelduse ja esitasime töö.
 **Ain Tamm** - Kasutasin tehisintellekti vigade leidmiseks ja parimate lahenduse leidmiseks 
 nagu näiteks ListView, millest ma ei olnud varem teadlik.
 
-**Kerdo Timak** - 
+**Kerdo Timak** - Kasutasin tehisintellekti HBox-ist arusaamiseks.
 
 ---
 

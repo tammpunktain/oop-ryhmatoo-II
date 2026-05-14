@@ -71,6 +71,9 @@ public class MainApp extends Application {
 
             Button nupp = new Button("Sisesta");
 
+            Button tagasi = new Button("Tagasi nimekirja");
+            tagasi.setOnAction(e3 -> kuvaAutodeNimekiri());
+
 
             nupp.setOnAction(e2 -> {
                 try {
@@ -102,11 +105,13 @@ public class MainApp extends Application {
                 }
             });
 
+            HBox tagasiRida = new HBox(tagasi);
+            tagasiRida.setAlignment(Pos.CENTER_LEFT);
 
-            vorm.getChildren().addAll(mark, mudel, aasta, ls, kütust, kytsiKulu, nupp);
+            vorm.getChildren().addAll(tagasiRida, mark, mudel, aasta, ls, kütust, kytsiKulu, nupp);
             vorm.setAlignment(Pos.CENTER);
-            vorm.setSpacing(10);
-            vorm.setPadding(new Insets(75));
+            vorm.setSpacing(20);
+            vorm.setPadding(new Insets(65));
             juur.setCenter(vorm);
         });
 
