@@ -2,6 +2,8 @@
 
 **Kerdo Timak, Ain Tamm**
 
+Git https://github.com/tammpunktain/oop-ryhmatoo-II
+
 ---
 
 ## Projekti kirjeldus
