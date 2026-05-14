@@ -1,1 +1,0 @@
-# oop-ryhmatoo-II
